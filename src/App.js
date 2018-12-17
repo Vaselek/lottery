@@ -1,28 +1,41 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import RandNumber from './components/RandNumber/RandNumber';
+import NewNumbersBtn from './components/NewNumbersBtn/NewNumbersBtn';
 import './App.css';
 
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+    state = {
+        numbers: [],
+    };
+
+
+
+    generateNewNumbers = () => {
+        let numbers = [];
+        for (let i; numbers.length <= 4; i++) {
+            const newNum = Math.floor(Math.random() * 31) + 5;
+            if (!numbers.includes(newNum)) {
+                numbers.push(newNum);
+            }
+        }
+        numbers.sort((a, b) => a - b);
+        this.setState({numbers});
+    };
+
+    render() {
+        return (
+            <div className="App">
+                <NewNumbersBtn onClick={this.generateNewNumbers}/>
+                <RandNumber value={this.state.numbers[0]}/>
+                <RandNumber value={this.state.numbers[1]}/>
+                <RandNumber value={this.state.numbers[2]}/>
+                <RandNumber value={this.state.numbers[3]}/>
+                <RandNumber value={this.state.numbers[4]}/>
+            </div>
+        );
+    }
 }
 
 export default App;
